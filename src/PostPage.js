@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import DataContext from "./context/DataContext";
 
-const PostPage = ({ posts, handleDelete }) => {
+const PostPage = () => {
+  const { posts, handleDelete } = useContext(DataContext);
   const { id } = useParams();
   const post = posts.find((item) => item.id.toString() === id);
   return (
@@ -11,7 +13,15 @@ const PostPage = ({ posts, handleDelete }) => {
           <>
             <h2>{post.title}</h2>
             <p className="postBody">{post.body}</p>
-            <button onClick={() => handleDelete(post.id)}>Delete Post</button>
+            <Link to={`/editpost/${post.id}`}>
+              <button className="EditButton">Edit Post</button>
+            </Link>
+            <button
+              className="DeleteButton"
+              onClick={() => handleDelete(parseInt(post.id))}
+            >
+              Delete Post
+            </button>
           </>
         )}
         {!post && (

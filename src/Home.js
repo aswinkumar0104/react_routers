@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import Feed from "./Feed";
+import DataContext from "./context/DataContext";
 
-const Home = ({ posts }) => {
+const Home = () => {
+  const { searchResults } = useContext(DataContext);
   return (
     <main className="Home">
-      {posts.length > 0 ? (
-        <Feed posts={posts} />
+      {searchResults.length > 0 ? (
+        <Feed posts={searchResults} />
       ) : (
-        <style>No posts to display</style>
+        <h1>No posts to display</h1>
       )}
     </main>
   );
